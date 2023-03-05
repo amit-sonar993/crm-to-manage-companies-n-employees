@@ -13,9 +13,11 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        @include('layouts.admin-lte-style')
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+        <div class="wrapper min-h-screen bg-gray-100">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
@@ -26,11 +28,12 @@
                     </div>
                 </header>
             @endif
-
+            <x-aside/>
             <!-- Page Content -->
-            <main>
+            <main class="content-wrapper">
                 {{ $slot }}
             </main>
         </div>
+        @include('layouts.admin-lte-script')
     </body>
 </html>
