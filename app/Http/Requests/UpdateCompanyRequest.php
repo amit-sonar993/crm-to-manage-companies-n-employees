@@ -22,9 +22,9 @@ class UpdateCompanyRequest extends FormRequest
     public function rules(): array
     {
         return [
-           'name' => '',
-           'email' => '',
-           'logo' => ''
+            'name' => 'required',
+            'email' => 'required|email',
+            'logo' => 'nullable|image|dimensions:min_width=100,min_height=100'
         ];
     }
 }

@@ -80,15 +80,15 @@ class CompanyController extends Controller
     {
         // Retrieve the validated input data...
         $validated = $request->validated();
-        $logo = $validated['logo'];
-
 
         $company = Company::findOrFail($id);
         $company->name = $validated['name'];
         $company->email = $validated['email'];
 
-        if (isset($logo)) {
+        if (isset($validated['logo'])) {
+            $logo = $validated['logo'];
             $oldFileName = Str::of($company->logo)->basename();
+
             if (Storage::disk('public')->exists($oldFileName->value)) {
                 Storage::disk('public')->delete($oldFileName->value);
             }
