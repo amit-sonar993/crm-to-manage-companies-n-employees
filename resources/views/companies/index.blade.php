@@ -39,9 +39,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($companies as $company)
+                            @foreach($companies as $index => $company)
                             <tr>
-                                <td>1.</td>
+                                <td>{{ $index+1 }}</td>
                                 <td>{{ $company->name }}</td>
                                 <td>
                                     {{ $company->email }}
