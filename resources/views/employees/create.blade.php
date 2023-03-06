@@ -9,8 +9,8 @@
         </div><!-- /.col -->
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Employees</a></li>
-                <li class="breadcrumb-item active">Create</li>
+                <li class="breadcrumb-item"><a href="{{ route('employees.index') }}">Employees</a></li>
+                <li class="breadcrumb-item active">{{ $employee->id ? 'Update' : 'Create' }}</li>
             </ol>
         </div><!-- /.col -->
     </x-content-header>
@@ -23,7 +23,7 @@
                     <!-- general form elements -->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Create Employees</h3>
+                            <h3 class="card-title"> {{ $employee->id ? 'Update' : 'Create' }} Employees</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
@@ -38,7 +38,7 @@
                                     <select name="company_id" class="form-control select2 {{ $errors->has('company_id') ? 'is-invalid' : ''}}" style="width: 100%;">
                                         <option value="">Choose</option>
                                         @foreach($companies as $comp)
-                                        <option value="{{ $comp->id }}" {{ old('company_id', $employee->company->id) == $comp->id ? 'selected' : '' }}>{{ $comp->name }}</option>
+                                        <option value="{{ $comp->id }}" {{ old('company_id', $employee->company?$employee->company->id: '') == $comp->id ? 'selected' : '' }}>{{ $comp->name }}</option>
                                         @endforeach
                                     </select>
                                     @if($errors->has('company_id'))
