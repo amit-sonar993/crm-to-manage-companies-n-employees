@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\StoreCompanyRequest;
+use App\Http\Requests\UpdateCompanyRequest;
 
 class CompanyController extends Controller
 {
@@ -25,7 +28,9 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        return view('companies.create');
+        $company = new Company();
+
+        return view('companies.create', compact('company'));
     }
 
     /**
@@ -44,7 +49,7 @@ class CompanyController extends Controller
         Company::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
-            'logo' => 'storage/'.$fileHashName
+            'logo' => 'storage/' . $fileHashName
         ]);
 
         return Redirect::route('companies.index')->with('success', 'Companies added successfully!');
@@ -63,15 +68,39 @@ class CompanyController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $company = Company::findOrFail($id);
+
+        return view('companies.create', compact('company'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateCompanyRequest $request, string $id)
     {
-        //
+        // Retrieve the validated input data...
+        $validated = $request->validated();
+        $logo = $validated['logo'];
+
+
+        $company = Company::findOrFail($id);
+        $company->name = $validated['name'];
+        $company->email = $validated['email'];
+
+        if (isset($logo)) {
+            $oldFileName = Str::of($company->logo)->basename();
+            if (Storage::disk('public')->exists($oldFileName->value)) {
+                Storage::disk('public')->delete($oldFileName->value);
+            }
+
+            $fileHashName = $logo->hashName();
+            Storage::disk('public')->put('/', $logo);
+            $company->logo = 'storage/'.$fileHashName;
+        }
+
+        $company->update();
+
+        return Redirect::route('companies.index')->with('success', 'Companies updated successfully!');
     }
 
     /**

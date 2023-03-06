@@ -27,26 +27,29 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="{{ route('companies.store') }}" enctype="multipart/form-data" method="POST">
+                        <form action="{{ $company->id ? route('companies.update', $company->id) : route('companies.store') }}" enctype="multipart/form-data" method="POST">
                             @csrf
+                            @if($company->id)
+                                @method('PUT')
+                            @endif
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="name">Name</label>
-                                    <input type="text" class="form-control" name="name" id="name" placeholder="Enter name">
+                                    <input type="text" class="form-control" value="{{$company->name}}" name="name" id="name" placeholder="Enter name">
                                     @if($errors->has('name'))
                                         <div class="error">{{ $errors->first('name') }}</div>
                                     @endif
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email address</label>
-                                    <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                                    <input type="email" name="email" value="{{$company->email}}" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
                                     @if($errors->has('email'))
                                         <div class="error">{{ $errors->first('email') }}</div>
                                     @endif
                                 </div>
                                 <div class="form-group">
                                     <label for="logo">Logo</label>
-                                    <input type="file" name="logo" class="dropify" id="logo">
+                                    <input type="file" name="logo" class="dropify" id="logo" data-default-file="{{ asset($company->logo) }}">
                                     @if($errors->has('logo'))
                                         <div class="error">{{ $errors->first('logo') }}</div>
                                     @endif
