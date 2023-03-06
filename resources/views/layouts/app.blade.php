@@ -28,6 +28,7 @@
             <x-aside/>
             <!-- Page Content -->
             <main class="content-wrapper">
+            @include('flash-message')
                 {{ $slot }}
             </main>
         </div>

@@ -27,25 +27,35 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form>
+                        <form action="{{ route('companies.store') }}" enctype="multipart/form-data" method="POST">
+                            @csrf
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="name">Name</label>
                                     <input type="text" class="form-control" name="name" id="name" placeholder="Enter name">
+                                    @if($errors->has('name'))
+                                        <div class="error">{{ $errors->first('name') }}</div>
+                                    @endif
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email address</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                                    <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                                    @if($errors->has('email'))
+                                        <div class="error">{{ $errors->first('email') }}</div>
+                                    @endif
                                 </div>
                                 <div class="form-group">
                                     <label for="logo">Logo</label>
-                                        <input type="file" class="dropify" id="logo">
+                                    <input type="file" name="logo" class="dropify" id="logo">
+                                    @if($errors->has('logo'))
+                                        <div class="error">{{ $errors->first('logo') }}</div>
+                                    @endif
                                 </div>
                             </div>
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary float-right">Submit</button>
                             </div>
                         </form>
                     </div><!-- /.card -->
