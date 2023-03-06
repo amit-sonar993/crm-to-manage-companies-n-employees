@@ -21,7 +21,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="{{ route('companies.index') }}" class="nav-link">
+            <a href="{{ route('companies.index') }}" class="nav-link {{request()->segment(1) == 'companies' ? 'active' : ''}}">
               <i class="nav-icon far fa-image"></i>
               <p>
                 Companies
@@ -29,7 +29,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/gallery.html" class="nav-link">
+            <a href="{{ route('employees.index') }}" class="nav-link {{request()->segment(1) == 'employees' ? 'active' : ''}}">
               <i class="fas fa-user bg-info"></i>
               <p>
                 Empoyees
