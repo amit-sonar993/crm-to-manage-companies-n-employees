@@ -11,29 +11,32 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-
         @include('layouts.admin-lte-style')
+
+        @yield('plugins_css')
+
+        @yield('custom_css')
+
+
     </head>
     <body class="font-sans antialiased">
         <div class="wrapper min-h-screen bg-gray-100">
             @include('layouts.navigation')
-
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
             <x-aside/>
             <!-- Page Content -->
             <main class="content-wrapper">
                 {{ $slot }}
             </main>
         </div>
+
+        @if(isset($model))
+            {{ $model }}
+        @endif
         @include('layouts.admin-lte-script')
+        @yield('plugins_script')
+        @yield('custom_script')
     </body>
 </html>
