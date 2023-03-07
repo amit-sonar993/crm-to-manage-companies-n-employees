@@ -25,7 +25,7 @@ Laravel Framework 10.2.0
 
 3.  ``` composer install ```
 
-3. run ``` php artisan migate --seed ```
+3. run ``` php artisan migrate --seed ```
 
 
 
