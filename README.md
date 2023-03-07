@@ -25,7 +25,6 @@ Laravel Framework 10.2.0
 
 3.  ``` composer install ```
 
-    **Creating database and seed the default user **
 3. run ``` php artisan migate --seed ```
 
 
