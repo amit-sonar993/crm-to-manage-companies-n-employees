@@ -45,10 +45,8 @@ class CompanyCrudTest extends TestCase
                 'logo' => $logo
             ]);
 
-        $hashName = $logo->hashName();
-
         // Assert the file was stored...
-        $this->assertTrue(Storage::disk('public')->exists($hashName));
+        Storage::disk('public')->assertExists($logo->hashName());
         $response
             ->assertSessionHasNoErrors()
             ->assertRedirect('/companies');
