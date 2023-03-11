@@ -40,8 +40,8 @@ class CompanyCrudTest extends TestCase
             ->actingAs($user)
             ->from('/companies/create')
             ->post('/companies', [
-                'name' => 'wrong-password',
-                'email' => 'new-password@gmail.com',
+                'name' => $this->faker->name(),
+                'email' => $this->faker->email(),
                 'logo' => $logo
             ]);
 
